@@ -7,12 +7,28 @@ print(" ->regras: voce tera 10 chances "
 print("*"*30)
 
 numero_secreto = 42
+total_de_tentativas = 10
+acertou = False
 
-chute = int(input("digite o seu numero: "))
-print("voce digitou",chute)
+while(acertou == False and total_de_tentativas != 0):
+      if(total_de_tentativas < 10):
+            print("\ntentativa:",11-total_de_tentativas)
+            if (11 - total_de_tentativas == 10): print("ULTIMA TENTATIVA!")
 
-if(numero_secreto == chute):
-      print("voce acertou!")
-else:
-      print("voce nao acertou.")
-print("\nFim do jogo.")
+      chute = int(input("digite o seu numero: "))
+      print("voce digitou", chute)
+
+      # vamos colocar as expreçoes em variaveis pra utiliza-las nos condicionais como true e false
+      acertou = numero_secreto == chute
+      maior = chute > numero_secreto
+      menor = chute < numero_secreto
+
+      if(acertou):
+            print("voce acertou!")
+      else:
+            print("voce nao acertou.")
+            if(maior):print("chute maior que o numero secreto")
+            elif(menor):print("chute menor que o numero secreto")
+      total_de_tentativas = total_de_tentativas - 1
+
+print("Fim do jogo.")
