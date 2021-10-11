@@ -1,4 +1,6 @@
 
+import random
+
 print("*"*30)
 print("Bem vindo ao jogo da adivinhaçao!")
 print("*"*30)
@@ -6,7 +8,17 @@ print(" ->regras: voce tera 10 chances "
       "de acertar um numero de 0 a 100 gerado automaticamente.")
 print("*"*30)
 
-numero_secreto = 42
+'''
+#gerando meu numero ramdom
+numero_secreto = 0
+while(numero_secreto<1 or numero_secreto>100):
+      numero_secreto = int(round(random.random()*100))
+      print("O numero secreto é:",numero_secreto)
+'''
+#todo esse bloco de codigo pode ser trocado pela funçao
+numero_secreto = random.randrange(1,101)
+print("O numero secreto é:",numero_secreto)
+##
 total_de_tentativas = 10
 acertou = False
 
