@@ -19,19 +19,34 @@ while(numero_secreto<1 or numero_secreto>100):
 numero_secreto = random.randrange(1,101)
 print("O numero secreto é:",numero_secreto)
 ##
-total_de_tentativas = 10
-acertou = False
 
-while(acertou == False and total_de_tentativas != 0):
-      if(total_de_tentativas < 10):
-            print("\ntentativa:",11-total_de_tentativas)
-            if (11 - total_de_tentativas == 10): print("ULTIMA TENTATIVA!")
+print("Escolha o nivel de dificuldade do jogo\n(1)Facil (2)Medio (3)Dificil")
+dificuldade = int(input("digite sua escolha: "))
+while(dificuldade!= 1 and dificuldade!=2 and dificuldade!=3):
+      dificuldade = int(input("entrada invalida, tente novamente: "))
+
+if(dificuldade == 1):
+      total_de_tentativas = 10
+elif(dificuldade == 2):
+      total_de_tentativas = 7
+elif(dificuldade == 3):
+      total_de_tentativas = 3
+
+total_de_pontos = 1000
+acertou = False
+tt = 1
+while(acertou == False and tt != total_de_tentativas+1):
+      if(tt <= total_de_tentativas):
+            print()
+            if(tt == total_de_tentativas):
+                  print("ULTIMA TENTATIVA!")
+            else:
+                  print("Tentetaiva",tt,"de",total_de_tentativas)
 
       chute = int(input("digite um numero de 1 a 100: "))
       if(chute < 1 or chute > 100):
             print("voce deve digitar um numero entre 1 e 100")
             continue
-      else: print("voce digitou", chute)
 
       # vamos colocar as expreçoes em variaveis pra utiliza-las nos condicionais como true e false
       acertou = numero_secreto == chute
@@ -40,10 +55,20 @@ while(acertou == False and total_de_tentativas != 0):
 
       if(acertou):
             print("voce acertou!")
+            print("Sua pontuaçao total no final do jogo foi de:",total_de_pontos)
       else:
             print("voce nao acertou.")
-            if(maior):print("chute maior que o numero secreto")
-            elif(menor):print("chute menor que o numero secreto")
-      total_de_tentativas = total_de_tentativas - 1
+            if(maior):
+                  print("chute maior que o numero secreto")
+                  desconto_de_pontos = chute - numero_secreto
+            elif(menor):
+                  print("chute menor que o numero secreto")
+                  desconto_de_pontos = numero_secreto - chute
 
-print("Fim do jogo.")
+      tt = tt + 1
+      total_de_pontos = total_de_pontos - desconto_de_pontos
+
+print()
+print("*"*12,end="")
+print(" Fim do jogo. ",end="")
+print("*"*12)
