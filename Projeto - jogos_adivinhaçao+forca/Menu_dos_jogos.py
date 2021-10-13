@@ -29,6 +29,8 @@ while(escolha != 3):
     print("*"*30)
     print("Escolha qual jogo voce quer jogar:\n(1)Jogo da Adivinhação\n(2)Jogo da Forca\n(3)Sair(Encerrar)")
     escolha = int(input("digite o numero da sua escolha: "))
+    while(escolha!=1 and escolha!=2 and escolha!=3):
+        escolha = int(input("entrada invalida, tente novamente: "))
 
     if(escolha == 1):
         print("inicializando o Jogo da Adivinhação...")
