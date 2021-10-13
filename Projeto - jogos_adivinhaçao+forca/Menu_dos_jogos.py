@@ -22,25 +22,25 @@ def adivinhacao():
 import jogo_da_adivinhacao
 import jogo_da_forca
 
-escolha = 0
-while(escolha != 3):
+escolha = "0"
+while(escolha != "3"):
     print("*"*30)
     print("Bem vindo ao Menu de Jogos")
     print("*"*30)
     print("Escolha qual jogo voce quer jogar:\n(1)Jogo da Adivinhação\n(2)Jogo da Forca\n(3)Sair(Encerrar)")
-    escolha = int(input("digite o numero da sua escolha: "))
-    while(escolha!=1 and escolha!=2 and escolha!=3):
-        escolha = int(input("entrada invalida, tente novamente: "))
+    escolha = input("digite o numero da sua escolha: ")
+    while(escolha!="1" and escolha!="2" and escolha!="3"):
+        escolha = input("entrada invalida, tente novamente: ")
 
-    if(escolha == 1):
+    if(escolha == "1"):
         print("inicializando o Jogo da Adivinhação...")
         jogo_da_adivinhacao.jogar()
         #adivinhacao()
-    elif(escolha == 2):
+    elif(escolha == "2"):
         print("inicializando o Jogo da Forca...")
         jogo_da_forca.jogar()
         #forca()
-    elif(escolha == 3):
+    elif(escolha == "3"):
         print("Encerrando o programa...")
         break
 

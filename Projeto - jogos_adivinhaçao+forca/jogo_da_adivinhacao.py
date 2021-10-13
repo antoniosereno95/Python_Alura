@@ -19,18 +19,30 @@ def jogar():
       #todo esse bloco de codigo pode ser trocado pela funçao
       numero_secreto = random.randrange(1,101)
       print("O numero secreto é:",numero_secreto)
-      ##
+
+      '''
+      Update de 13/10/21
+      Para evitar erros de entrada eu vou trabalhar com listas de string
+      dessa forma quando o usuario colocar 'h' na entrada ou qualquer outro
+      caractere do teclado, o jogo nao vai dar erro, so vai pedir que ele
+      de uma entrada valida.
+      '''
+      lista_de_numeros = []
+      for numb in range(1,101):
+            numb = str(numb)
+            lista_de_numeros.append(numb)
+      #print(lista_de_numeros)
 
       print("Escolha o nivel de dificuldade do jogo\n(1)Facil (2)Medio (3)Dificil")
-      dificuldade = int(input("digite sua escolha: "))
-      while(dificuldade!= 1 and dificuldade!=2 and dificuldade!=3):
-            dificuldade = int(input("entrada invalida, tente novamente: "))
+      dificuldade = input("digite sua escolha: ")
+      while(dificuldade!= "1" and dificuldade!="2" and dificuldade!="3"):
+            dificuldade = input("entrada invalida, tente novamente: ")
 
-      if(dificuldade == 1):
+      if(dificuldade == "1"):
             total_de_tentativas = 10
-      elif(dificuldade == 2):
+      elif(dificuldade == "2"):
             total_de_tentativas = 7
-      elif(dificuldade == 3):
+      elif(dificuldade == "3"):
             total_de_tentativas = 3
 
       total_de_pontos = 1000
@@ -44,15 +56,15 @@ def jogar():
                   else:
                         print("Tentetaiva",tt,"de",total_de_tentativas)
 
-            chute = int(input("digite um numero de 1 a 100: "))
-            if(chute < 1 or chute > 100):
+            chute = input("digite um numero de 1 a 100: ")
+            while(chute not in lista_de_numeros):
                   print("voce deve digitar um numero entre 1 e 100")
-                  continue
+                  chute = input("digite um numero de 1 a 100: ")
 
             # vamos colocar as expreçoes em variaveis pra utiliza-las nos condicionais como true e false
-            acertou = numero_secreto == chute
-            maior = chute > numero_secreto
-            menor = chute < numero_secreto
+            acertou = numero_secreto == int(chute)
+            maior = int(chute) > numero_secreto
+            menor = int(chute) < numero_secreto
 
             if(acertou):
                   print("voce acertou!")
@@ -61,10 +73,10 @@ def jogar():
                   print("voce nao acertou.")
                   if(maior):
                         print("chute maior que o numero secreto")
-                        desconto_de_pontos = chute - numero_secreto
+                        desconto_de_pontos = int(chute) - numero_secreto
                   elif(menor):
                         print("chute menor que o numero secreto")
-                        desconto_de_pontos = numero_secreto - chute
+                        desconto_de_pontos = numero_secreto - int(chute)
                   total_de_pontos = total_de_pontos - desconto_de_pontos
 
             tt = tt + 1
