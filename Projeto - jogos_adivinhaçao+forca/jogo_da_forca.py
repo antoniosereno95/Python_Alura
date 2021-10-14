@@ -1,5 +1,89 @@
 import random
 
+def imprime_mensagem_perdedor(palavra_secreta):
+    print("Puxa, você foi enforcado!")
+    print("A palavra era {}".format(palavra_secreta))
+    print("    _______________         ")
+    print("   /               \       ")
+    print("  /                 \      ")
+    print("//                   \/\  ")
+    print("\|   XXXX     XXXX   | /   ")
+    print(" |   XXXX     XXXX   |/     ")
+    print(" |   XXX       XXX   |      ")
+    print(" |                   |      ")
+    print(" \__      XXX      __/     ")
+    print("   |\     XXX     /|       ")
+    print("   | |           | |        ")
+    print("   | I I I I I I I |        ")
+    print("   |  I I I I I I  |        ")
+    print("   \_             _/       ")
+    print("     \_         _/         ")
+    print("       \_______/           ")
+
+def imprime_mensagem_vencedor():
+    print("Parabéns, você ganhou!")
+    print("       ___________      ")
+    print("      '._==_==_=_.'     ")
+    print("      .-\\:      /-.    ")
+    print("     | (|:.     |) |    ")
+    print("      '-|:.     |-'     ")
+    print("        \\::.    /      ")
+    print("         '::. .'        ")
+    print("           ) (          ")
+    print("         _.' '._        ")
+    print("        '-------'       ")
+
+def desenha_forca(erros):
+    if(erros<7):
+        print("  _______     ")
+        print(" |/      |    ")
+
+        if(erros == 6):
+            print(" |      (_)   ")
+            print(" |            ")
+            print(" |            ")
+            print(" |            ")
+
+        if(erros == 5):
+            print(" |      (_)   ")
+            print(" |      \     ")
+            print(" |            ")
+            print(" |            ")
+
+        if(erros == 4):
+            print(" |      (_)   ")
+            print(" |      \|    ")
+            print(" |            ")
+            print(" |            ")
+
+        if(erros == 3):
+            print(" |      (_)   ")
+            print(" |      \|/   ")
+            print(" |            ")
+            print(" |            ")
+
+        if(erros == 2):
+            print(" |      (_)   ")
+            print(" |      \|/   ")
+            print(" |       |    ")
+            print(" |            ")
+
+        if(erros == 1):
+            print(" |      (_)   ")
+            print(" |      \|/   ")
+            print(" |       |    ")
+            print(" |      /     ")
+
+        if (erros == 0):
+            print(" |      (_)   ")
+            print(" |      \|/   ")
+            print(" |       |    ")
+            print(" |      / \   ")
+
+        print(" |            ")
+        print("_|___         ")
+        print()
+
 def tenta_abrir_arquivo(nome):
     try:
         a = open(nome,'r')
@@ -74,7 +158,7 @@ def jogar():
             for linha in arquivo:
                 lista2.append(linha.strip().replace("\n",""))
 
-        palavra_secreta = str(lista2[random.randint(0,len(lista2))])
+        palavra_secreta = str(lista2[random.randint(0,(len(lista2)-1))])
         lista_acertos = ["_" for letra in palavra_secreta] #list_comprehension
         letras_jogadas = "*"
         print("Palavra secreta ->",lista_acertos)
@@ -104,14 +188,16 @@ def jogar():
                 print(lista_acertos)
                 if ("_" not in lista_acertos):
                     acertou = True
-                    print("Voce venceu o jogo!")
+                    imprime_mensagem_vencedor()
                     #print(letras_jogadas)
                 else:
                     print("jogando...\n")
             if(erros == 0):
+                desenha_forca(erros)
                 enforcou = True
-                print(">>>Suas tentativas se esgotaram e voce perdeu o jogo =( .")
+                imprime_mensagem_perdedor(palavra_secreta)
             if(lista_acertos.count("_") != 0 and erros != 0):
+                desenha_forca(erros)
                 if(erros == 1):
                     print("->Ultima tentativa!! e ainda faltam {} letras secretas.".format(lista_acertos.count("_")))
                 else:
