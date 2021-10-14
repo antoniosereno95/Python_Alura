@@ -28,37 +28,47 @@ def dados_default():
     lista = ["laranja", "uva", "pera", "banana", "abacaxi" , "manga" , "caju"]
     return lista
 
-def jogar():
-    print("*"*30)
-    print("Bem vindo ao jogo da Forca!")
-    print("*"*30)
-    print(" ->regras: Voce tera 7 tentativas para acertar uma palavra secreta,\na cada chance errada voce perde uma tentativa.")
-    print("*"*30)
-
-    #nome do arquivo: palavras.txt
-    nome_arquivo = "palavras.txt"
-    arquivo_ok = False
-    if(tenta_abrir_arquivo(nome_arquivo)):
+def arquivo_ok(nome_arquivo):
+    if (tenta_abrir_arquivo(nome_arquivo)):
         arquivo_ok = True
         print(">Arquivo carregado com sucesso<")
     else:
         print("Arquivo nao encontrado, devo criar um novo arquivo 'palavras.txt' e alimenta-lo com dados default?")
         resp = input("S/N: ").lower()
-        while(resp not in ["s","n"]):
+        while (resp not in ["s", "n"]):
             resp = input("entrada invalida!\nS/N: ")
-        if(resp == "s"):
+        if (resp == "s"):
             cria_novo_arquivo(nome_arquivo)
-            if(tenta_abrir_arquivo(nome_arquivo)):
+            if (tenta_abrir_arquivo(nome_arquivo)):
                 arquivo_ok = True
                 lista = dados_default()
-                with open(nome_arquivo,"w") as arquivo:
+                with open(nome_arquivo, "w") as arquivo:
                     for i in lista:
                         arquivo.write(f"{i}\n")
         else:
             arquivo_ok = False
             print("O jogo nao pode começar sem um arquivo carregado e sera encerrado agora...")
+    return arquivo_ok
 
-    if(arquivo_ok == True):
+def mensagem_inicial():
+    print("*" * 30)
+    print("Bem vindo ao jogo da Forca!")
+    print("*" * 30)
+    print(
+        " ->regras: Voce tera 7 tentativas para acertar uma palavra secreta,\na cada chance errada voce perde uma tentativa.")
+    print("*" * 30)
+
+def mensagem_final():
+    print()
+    print("*" * 12, end="")
+    print(" Fim do jogo, voltando ao menu principal... ", end="")
+    print("*" * 12)
+
+def jogar():
+    mensagem_inicial()
+    #nome do arquivo: palavras.txt
+    nome_arquivo = "palavras.txt"
+    if(arquivo_ok(nome_arquivo)):
         lista2 = []
         with open(nome_arquivo,"r") as arquivo:
             for linha in arquivo:
@@ -106,18 +116,11 @@ def jogar():
                     print("->Ultima tentativa!! e ainda faltam {} letras secretas.".format(lista_acertos.count("_")))
                 else:
                     print("->Ainda faltam {} letras secretas e voce tem mais {} tentativas.".format(lista_acertos.count("_"),erros))
-
-        print()
-        print("*"*12,end="")
-        print(" Fim do jogo, voltando ao menu principal... ",end="")
-        print("*"*12)
-
-    fecha_o_arquivo(nome_arquivo)
-    #fim
+        mensagem_final()
 
 if(__name__ == "__main__"):
       jogar()
-#expplicaçao no arquivo 'jogo_da_adivinhaçao'
+#explicaçao no arquivo 'jogo_da_adivinhaçao'
 
 
 
