@@ -1,8 +1,15 @@
+from conta import Conta
 
 class Cliente:
     #construtor
-    def __init__(self, nome):
+    def __init__(self, nome , inadimplente = False):
         self.__nome = nome
+        #verifica se i atributo inadimplente é do tipo bool
+        try:
+            inadimplente = bool(inadimplente)
+        except:print(">>>Erro! variavel inadinplemte deve ser do tipo bool")
+        else:self.__inadimplente = inadimplente
+
 
     '''essa sintaxe de '@property' e de '@atributo.setter' 
     so serve para deixar a chamada dessas funçoes mais amigavel, 
@@ -32,6 +39,13 @@ class Cliente:
         '__nome' é por ele, **É basicamnete um encapsulamento de 
         atributo(o @property)** e o @nome.setter serve como o setter
         desse encapsulamento de atributo.'''
+
+    @property
+    def inadimplente(self):
+        return self.__inadimplente
+    @inadimplente.setter
+    def inadimplente(self,boolean):
+        self.__inadimplente = boolean
 
 
 
