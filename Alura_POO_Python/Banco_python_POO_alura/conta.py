@@ -15,6 +15,7 @@ class Conta:
         self.__titular = titular
         self.__saldo = saldo
         self.__limite = limite
+        #virou metodo estatico, nao precisa mais disso aqui ->' self.__codigo_do_banco = "001" '<-#codigo do banco do brasil, depois implementar parra outros bancos
     #os get
     @property
     def numero_da_conta(self):
@@ -41,7 +42,13 @@ class Conta:
     @limite.setter
     def limite(self,valor):
         self.__limite = valor
-
+    '''
+    @codigo_do_banco.setter
+    def codigo_do_banco(self,valor):
+        #olhar aqui pq codigo de banco nao se muda!!!
+        #a nao ser em uma mudança de banco, que pode ser algo a ase implementar depois
+        self.codigo_do_banco = valor
+    '''
     #os metodos
     def extrato(self):
         print("O saldo de {} pertence ao titular {} da conta {}".format(self.saldo,self.titular,self.numero_da_conta))
@@ -54,7 +61,7 @@ class Conta:
             self.saldo = self.saldo - valor
         else:
             print(">>>Erro!Saldo insuficiente.")
-    
+
     #este metodo 'pode_sacar()' foi declarado um METODO PRIVADO da class conta pois ele so deve ser usado dentro da classe
     def __pode_sacar(self, valor_a_sacar):
         return valor_a_sacar <= (self.limite + self.saldo)
@@ -79,6 +86,13 @@ class Conta:
         else:
             Cliente.inadimplente = False
     '''
+    #metodos estaticos->que podem ser acessados por todo o programa, tando pelo main quanto pelas classe fo arquivo
+    @staticmethod
+    def codigo_do_banco():
+        return "001"
+    @staticmethod
+    def codigos_do_bancos():
+        return {'BB':"001" , 'caixa':"104" , 'bradesco':"237" }
 
 #################  Main  ##########################################
 if(__name__ == "__main__"):
@@ -88,6 +102,9 @@ if(__name__ == "__main__"):
     eu estou dizendo de qual arquivo o python deve tirar determinada 
     importaçao. 'do arquivo conta, importe a class Conta'(nao confundir os nomes)
     '''
+
+    print(Conta.codigo_do_banco())
+    print("------------------")
 
     conta1 = Conta(123, "geraldo", 10, 10)
     conta1.extrato()
@@ -114,4 +131,5 @@ if(__name__ == "__main__"):
 
     conta1.extrato()
     conta2.extrato()
+
 
