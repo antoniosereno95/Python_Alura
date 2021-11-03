@@ -1,0 +1,1 @@
+juliana;F;23;123;florianopolis;credito\n

@@ -1,0 +1,41 @@
+questao:
+-->fazer um menu de uma alugadora de veiculos
+ , onde vai ter barcos , motos e carros. voce deve
+ colocar no minimo 3 tipos de cada veiculo.
+
+ utilizando POO e outros conhecimentos faça:
+ 1. o menu onde o balconista vai falar com o usuario.
+
+ 2. vai pedir nome cpf idade sexo e endereço e
+ cartao de credito da pessoa que quer alugar o veiculo.
+
+ 3.vai pedir o tipo de veiculo que ela vai alugar
+ assim como a forma de pagamento e o tempo que
+ o veiculo sera utilizado.
+
+ 4. se o veiculo na entrega veio ou nao com tanque
+ cheio para calcular outras cobranças sobre a conta final
+
+ 5. mostrar as diferenças entre os veiculos e quais
+ vanatgens o veiculo tem sobre os outrso asim como
+ diferença de preços
+
+ 6. fazer a checagem de dados
+
+ 7. fechar a conta verificando atrasos de devoluçao
+ e a questao do tanque cheio
+
+ 8. criar um arquivo com o nome da pessoa ou cpf
+
+ 9. ter um arquivo onde os nomes dos carros estaram
+ para quando eu iniciar o programa eu ja ter uma
+ 'database' do oq eu tenho disponivel
+
+ 10.colocar se opçoes de alteraçoes sobre o arquivo
+
+ 11.colocar uma opçao de 'passar um dia', onde o
+ programa termina um dia e ve diz quais carros devem
+ ser devolvidos naquele dia e quais estao com atraso
+
+ 12. fazer tudo funcionar =)
+
