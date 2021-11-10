@@ -224,53 +224,20 @@ class Funcionario(Pessoa):
         return f'Nome do funcionario:{self.nome};Sexo:{self.sexo};Idade:{self.idade};Cpf:{self.cpf};Endereço:{self.endereço}'
 
 ######## Metodos #####################
-
 def Existe_arquivo(nome):
     try:
-        a = open(nome,'w')
+        a = open(nome,'r')
         a.close()
     except:
         FileNotFoundError
         return False
     else:
-        print(">arquivo carregado com sucesso<")
+        #print(">arquivo carregado com sucesso<")
         return True
 
 #abre arquivo
 #add no arquivo
 #carega informaçoes dos arquivos
-
-def Listagem_dos_Carros_Dinponiveis():
-    pass
-
-def Valida_cpf_cliente(cpf):
-    if(Existe_arquivo("Locadora_Clientes")):
-        pass
-    '''with arquivo open ... pegar cpf e validar.
-    '''
-
-
-# Menu´s
-def codigos_desnecessarios():
-    '''
-        #Carros: nome, marca, ano, numero_portas, consumo_litros, kilometragem, lotaçao
-        ce = Carro_Esportivo("CS202","mercedes",2020,2,12,0,4,200)
-        print(ce)
-
-        fa = Carro_Familiar("Sprinter","mercedes",2013,3,6,87000,10,True)
-        print(fa)
-
-        pop = Carro_Popular("uno","fiat",2017,4,12,37000,5)
-        print(pop)
-        '''
-    """
-    #moto: nome, marca,ano, cilindragem, consumo, velocidade_maxima
-    me = Moto_esportiva("super","yamaha",2013,750,8,220)
-    print(me)
-
-    mp = Moto_popular("lambreta","honda",2003,80,4)
-    print(mp)
-    """
 
 def Menu_devoluçao():
     print("*" * 42)
@@ -299,9 +266,102 @@ def Menu_Principal():
     print("4.Sair")
     print("*" * 42)
 
+def Cria_listas_de_objetos_CARROS():
+    Lista_de_obj_carros_esportivos = []
+    Lista_de_obj_carros_familiares = []
+    Lista_de_obj_carros_populares = []
+
+    if(Existe_arquivo("Locadora_Carros.txt")):
+        with open("Locadora_Carros.txt","r") as arquivo:
+            for linha_do_arquivo in arquivo:
+                linhas = linha_do_arquivo.split("\n")
+                '''linhas é uma lista e retorna esse conteudo aqui:
+                --> ['AMG;merecedes-benz;2020;2;14;0;2;320;False\\n', '']
+                #print(linhas)
+                '''
+                palavras = linhas[0].split(";")
+                palavras[8] = palavras[8].removesuffix("\\n")#tratamento da ultima string que vem com esse bagulho feioso ai no final dela.
+                #print(palavras)
+
+                if(int(palavras[6])>5 or palavras[8]=="True"):
+                    carro_familiar = Carro_Familiar(str(palavras[0]),str(palavras[1]),int(palavras[2]),int(palavras[3]),float(palavras[4]),int(palavras[5]),int(palavras[6]),bool(palavras[8]))
+                    Lista_de_obj_carros_familiares.append(carro_familiar)
+                if(int(palavras[7])!=0):
+                    carro_esportivo = Carro_Esportivo(str(palavras[0]),str(palavras[1]),int(palavras[2]),int(palavras[3]),float(palavras[4]),int(palavras[5]),int(palavras[6]),int(palavras[7]))
+                    Lista_de_obj_carros_esportivos.append(carro_esportivo)
+                if(int(palavras[6])==5 and int(palavras[7])==0):
+                    carro_popular = Carro_Popular(str(palavras[0]),str(palavras[1]),int(palavras[2]),int(palavras[3]),float(palavras[4]),int(palavras[5]),int(palavras[6]))
+                    Lista_de_obj_carros_populares.append(carro_popular)
+
+    return Lista_de_obj_carros_populares,Lista_de_obj_carros_familiares,Lista_de_obj_carros_esportivos
+
+def Listagem_dos_Carros_Dinponiveis():
+    print("Carros Esportivos:")
+    k = 1
+    for c in Lista_de_obj_carros_esportivos:
+        print(f"{k}:")
+        print(c)
+        k+=1
+
+    print("Carros Familiares:")
+    k = 1
+    for c in Lista_de_obj_carros_familiares:
+        print(f"{k}:")
+        print(c)
+        k += 1
+    print("Carros Pupolares:")
+    k = 1
+    for c in Lista_de_obj_carros_populares:
+        print(f"{k}:")
+        print(c)
+        k += 1
+
+########## Metodos obsoletos ##############
+def Valida_cpf_cliente_por_arquivo(cpf_cliente):
+    # essa validaçao de cpf por arquivo ficou obsoleta deposi deu começar a utilizar as listas de objetos,vou deixar so por deixar mesmo.
+    encontrei = False
+    if (Existe_arquivo("Locadora_Clientes.txt")):
+        with open("Locadora_Clientes.txt") as arquivo:
+            for linha in arquivo:
+                infos = linha.split("\n")
+                palavras = infos.split(";")
+                if (palavras[3] == cpf_cliente):
+                    encontrei = True
+    if (encontrei == True):
+        return True
+    else:
+        return False
+
+    # Menu´s
+def codigos_desnecessarios():
+    '''
+        #Carros: nome, marca, ano, numero_portas, consumo_litros, kilometragem, lotaçao
+        ce = Carro_Esportivo("CS202","mercedes",2020,2,12,0,4,200)
+        print(ce)
+
+        fa = Carro_Familiar("Sprinter","mercedes",2013,3,6,87000,10,True)
+        print(fa)
+
+        pop = Carro_Popular("uno","fiat",2017,4,12,37000,5)
+        print(pop)
+        '''
+    """
+    #moto: nome, marca,ano, cilindragem, consumo, velocidade_maxima
+    me = Moto_esportiva("super","yamaha",2013,750,8,220)
+    print(me)
+
+    mp = Moto_popular("lambreta","honda",2003,80,4)
+    print(mp)
+    """
 ####### Main #########################
 if(__name__ == '__main__'):
 
+    #antes de qualquer coisa acontecer eu vou criar as listas de objetos dos veiculos e Pessoas.(fica altamente mais facil e trabalhar assim)
+    Lista_de_obj_carros_populares,Lista_de_obj_carros_familiares,Lista_de_obj_carros_esportivos = Cria_listas_de_objetos_CARROS()
+
+    #
+
+    #inicio da rotina principal
     while(True):
         Menu_Principal()
         r = input("Digite o numero da opção desejada: ")
@@ -309,7 +369,7 @@ if(__name__ == '__main__'):
             r = input("Digite uma opção valida(1, 2 ou 3): ")
 
         if(r == "1"):#ALugar
-            while(True)
+            while(True):
                 q = input("Cliente ja cadastrado?(s/n)")
                 while q.upper() not in "SN":
                     q = input("digite uma opçao valida(s/n): ")
@@ -317,23 +377,38 @@ if(__name__ == '__main__'):
                     flag_cpf = False
                     C_cpf = input("Digite o CPF do cliente: ")
                     if(C_cpf != 0):
-                        flag_cpf= True
-                        #validar cpf dentro dos objetos do arquivo Clientes
-                        Valida_cpf_cliente()
-                    if(flag_cpf == True):
+                        # validar cpf dentro da lista de objetos de Clientes
+                        # if(Valida_cpf_cliente()):
+                        #     flag_cpf= True
+                        # else:
+                        #     flag_cpf = False
+                        flag_cpf = True
+                elif(q.upper() == "N"):
+                    t = input("Deseja cadastrar o cliente agora?(S/N) ")
+                    while t.upper() not in "SN":
+                        t = input("digite uma opçao valida(s/n): ")
+                    if(q.upper() == "S"):
+                        print("Sessao ainda nao desenvolvida.")
+                    #     Cadastrar_Cliete()
+                    #     pass
+                    # else:
+                    #     continue
+
+                if(flag_cpf == True):
                         Menu_aluguel()
                         a = input("Digite o numero da opção desejada: ")
                         while a not in "1234":
                             a = input("tente novamente, digite o numero da opção desejada: ")
                         if(a == "1"):
                             #listar os carros disponiveis
-                            Lista_Carros_Dinponiveis()
+                            Listagem_dos_Carros_Dinponiveis()
+                            break
                         elif(a == "2"):
                             # listar motos
-                            pass
+                            break
                         elif(a == "3"):
                             # listar barcos
-                            pass
+                            break
                         elif(a == "4"):
                             q = input("Deseja realmente sair do 'Menu Alugar'?(s/n)")
                             while q.upper() not in "SN":
@@ -341,7 +416,9 @@ if(__name__ == '__main__'):
                             if (q.upper() == "S"):
                                 # fechar o arquivo
                                 print("Voltando ao menu principal...")
+                                break
                             else:
+                                print("*" * 42)
                                 continue
 
 
