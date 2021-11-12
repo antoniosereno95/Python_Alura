@@ -4,5 +4,4 @@ Compass;toyota;2018;4;15;25000;7;0;False\n
 Sprinter;mercedes;2016;3;16;43000;11;0;True\n
 Uno;fiat;2017;4;12;37000;5;0;False\n
 Sandero;renault;2016;2;13;48000;5;0;False\n
-
-;-->lista com 9 posiçoes pra cada carro!!!;
+kiwi;renault;2019;4;11;23000;5;0;False

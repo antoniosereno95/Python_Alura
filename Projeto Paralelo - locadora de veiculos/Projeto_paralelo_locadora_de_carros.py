@@ -244,8 +244,17 @@ def Existe_arquivo(nome):
         #print(">arquivo carregado com sucesso<")
         return True
 
+def Adiciona_conteudo_em_arquivo(nome_do_arquivo,dados_tratados):
+    if(Existe_arquivo(nome_do_arquivo)):
+        with open(nome_do_arquivo, "a") as arquivo: #'a' é de append, se usar o modo 'w'(write) o metodo sobreescreve o conteudo do arquivo ocm o novo write, ou seja, perde tudo que estava la dentro.
+            arquivo.write(dados_tratados)
+        #debug
+        print("-->debug:")
+        with open(nome_do_arquivo, "r") as arquivo:
+            print(arquivo.read())
+        print("-->debuging ends.")
+
 #abre arquivo
-#add no arquivo
 #carega informaçoes dos arquivos
 
 def Menu_devoluçao():
@@ -428,6 +437,7 @@ def Adicioana_no_Arquivo_de_Carros():
             except:
                 print("erro ao tentar criar o objeto carro.")
                 flag_erro = True
+
         #carro esportivo
         if(velocidade_max != 0):
             try:
@@ -435,8 +445,9 @@ def Adicioana_no_Arquivo_de_Carros():
             except:
                 print("erro ao tentar criar o objeto carro.")
                 flag_erro = True
+
         #carro popular
-        if (int(lotacao) == 5):
+        if (int(lotacao) == 5 and not van):
             try:
                 c = Carro_Popular(nome, marca, ano, numero_portas, consumo_litros, kilometragem, lotacao)
             except:
@@ -461,7 +472,21 @@ def Adicioana_no_Arquivo_de_Carros():
             while t.upper() not in "SN":
                 t = input("(s/n)")
             if (t.upper() == "S"):
-                Tratamento_de_infos_para_por_no_arquivo()
+                try:
+                    dados_tratados = Tratamento_de_infos_para_por_no_arquivo(nome,marca,ano,numero_portas,consumo_litros,kilometragem,lotacao,velocidade_max,van)
+                    Adiciona_conteudo_em_arquivo("Locadora_Carros.txt", dados_tratados)
+                except:
+                    print("Algo deu errado no momento em que tentamos tratar ou adicionar os dados no arquivo")
+                else:
+                    if (int(lotacao) > 5 or van == True):
+                        Lista_de_obj_carros_familiares.append(c)
+                    if (velocidade_max != 0):
+                        Lista_de_obj_carros_esportivos.append(c)
+                    if (int(lotacao) == 5 and not van):
+                        Lista_de_obj_carros_populares.append(c)
+                #depois de fazer tudo
+                break
+
             else:
                 t = input("deseja tentar novamente o cadastro?(s/n)")
                 while t.upper() not in "SN":
@@ -473,10 +498,25 @@ def Adicioana_no_Arquivo_de_Carros():
     print("~*~" * 21)
     #fim
 
+def Tratamento_de_infos_para_por_no_arquivo(nome,marca,ano,numero_portas,consumo_litros,kilometragem,lotaçao,velocidade_maxima,van):
+    # nome,marca,ano,numero_portas,consumo_litros,kilometragem,lotaçao,velocidade_maxima,van
+    lista = [nome,marca,ano,numero_portas,consumo_litros,kilometragem,lotaçao,velocidade_maxima,van]
+    for i in range(len(lista)):
+       lista[i] = str(lista[i])
+    dados_tratados = ";".join(lista)
+    dados_tratados = dados_tratados + "\n"
+    return dados_tratados
+
 def Adicioana_no_Arquivo_de_Clientes():
+    #fazer perguntas de cliente
+    #chamar funçao Tratamento de dados
+    #chamar funçao add no arquivo
     pass
 
 def Adicioana_no_Arquivo_de_Funcionarios():
+    # fazer perguntas de funcionario
+    # chamar funçao Tratamento de dados
+    # chamar funçao add no arquivo
     pass
 
 ########## Metodos obsoletos ##############
@@ -552,6 +592,8 @@ if(__name__ == '__main__'):
                         t = input("digite uma opçao valida(s/n): ")
                     if(q.upper() == "S"):
                         Adicioana_no_Arquivo_de_Clientes()
+                        print("ainda nao desenvolvido pelo dev preguiçoso")
+                        pass
                     else:
                         continue
 
@@ -586,6 +628,8 @@ if(__name__ == '__main__'):
             Menu_devoluçao()
             #na devoluçao o atendente primeiro diz oq vais ser devolvido
             # depois ele da o cpf ou placa do veiculo(que nao tem variavel implementada ainda) a ser devolvido
+            print("ainda nao desenvolvido pelo dev preguiçoso")
+            pass
 
         if(r == "3"):#opçoes do banco de dados
             print(">ACESSO RESTRITO, LOGIN NECESSARIO<")
@@ -635,10 +679,13 @@ if(__name__ == '__main__'):
                             Adicioana_no_Arquivo_de_Carros()
                         elif (op == "2"):
                             Adicioana_no_Arquivo_de_Clientes()
+                            print("ainda nao desenvolvido pelo dev preguiçoso")
                         elif (op == "3"):
                             Adicioana_no_Arquivo_de_Funcionarios()
+                            print("ainda nao desenvolvido pelo dev preguiçoso")
 
                     elif(opçao == "3"):#modificar
+                        print("ainda nao desenvolvido pelo dev preguiçoso")
                         #1 objeto modificado por vez
                         #ficar de olho pois se eu modificar a velo maxima ou o atributo van, ai terei de tirar o objeto de uma lista e arquivo e colocar no outro arquivo e na outra lista !!!!
                         pass
